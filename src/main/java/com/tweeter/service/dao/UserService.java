@@ -11,6 +11,14 @@ import java.util.List;
 import com.tweeter.service.db.DBUtility;
 import com.tweeter.service.domain.User;
 
+/**
+ * Class that handles User Services like
+ * User details & All Users
+ * 
+ * @version 1.3
+ * @author srinivasan6
+ *
+ */
 public class UserService {
 	
 	private Connection connection;
@@ -19,6 +27,11 @@ public class UserService {
 		connection = DBUtility.getConnection();
 	}
 	
+	/**
+	 * Method to fetch a specific user information
+	 * 
+	 * @return  list of all Users
+	 */
 	public List<User> getAllUsers() {
 		// TODO Auto-generated method stub
 		List<User> users = new ArrayList<User>();
@@ -41,6 +54,13 @@ public class UserService {
 		return users;
 	}
 
+	/**
+	 * Method to fetch a specific user information
+	 * 
+	 * @param username the user for which info is required
+	 * @return  information about the user
+	 */
+	
 	public User getUserById(String username) {
 		User user = new User();
 		try {

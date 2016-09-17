@@ -19,6 +19,15 @@ public class FollowService {
 		connection = DBUtility.getConnection();
 	}
 	
+	/**
+	 * Function to retrieve the list of people a
+	 * user is following as well as the followers of the user
+	 * 
+	 * @param username  the current-user 
+	 * 					
+	 * @return retrieves list of users followed and following
+	 * 			         for the current-username           
+	 */
 	public List<Follow> getFollowerById(String username) {
 		List<Follow> followers = new ArrayList<Follow>();
 		
@@ -40,11 +49,20 @@ public class FollowService {
 		return followers;
 	}
     
+	/**
+	 * Function that handles following an User
+	 * 
+	 * @param curruser   the current-user who wants to follow
+	 * @param followuser the user being followed
+	 * @return           1 if followed successfully
+	 * @throws ParseException
+	 */
+	
 	public int updateFollowByUser(String followuser,String curruser) throws ParseException {
 		int retVal=0;
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into follow (person,follower) values (?, ?)");
+					.prepareStatement("insert into follow (follower,person) values (?, ?)");
 			// Parameters start with 1			
 			preparedStatement.setString(1, followuser);
 			preparedStatement.setString(2, curruser);			
@@ -56,11 +74,19 @@ public class FollowService {
 		return retVal;
 	}
 	
-	public int updateUnfollowByUser(String followuser,String curruser) throws ParseException {
+	/**
+	 * Function that handles UnFollowing an User
+	 * 
+	 * @param curruser   the current-user who wants to unfollow
+	 * @param followuser the user being Unfollowed
+	 * @return           1 if Unfollowed successfully
+	 * @throws ParseException
+	 */
+	public int updateUnfollowByUser(String curruser,String followuser) throws ParseException {
 		int retVal=0;
 		try {
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("delete from follow  where follower =  ? and  person = ?");
+					.prepareStatement("delete from follow  where follower = ? and person =  ?");
 			// Parameters start with 1			
 			preparedStatement.setString(1, curruser);
 			preparedStatement.setString(2, followuser);			
